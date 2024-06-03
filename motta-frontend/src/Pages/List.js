@@ -15,6 +15,7 @@ const List = () => {
           <Button
             type="primary"
             onClick={() => {
+              setSelectedUser({});
               setIsNew(true);
             }}
             icon={<UserAddOutlined />}

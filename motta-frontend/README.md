@@ -1,70 +1,29 @@
-# Getting Started with Create React App
+# Proyecto creado con Create React App y manejado con yarn
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Al bajar el repositorio es necesario correrdesde la carpeta motta-frontend:
 
-## Available Scripts
+### `yarn install`
 
-In the project directory, you can run:
+Después para correr el proyecto hay que utilizar
 
-### `npm start`
+### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Para hacer los testings hay que utilizar
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### `yarn test`
 
-### `npm test`
+El proyecto trata sobre consumir una lista de empleados, mostrar una Lista de sus datos en pantalla, y ofrecer al usuario las acciones de agregar, editar y eliminar, además de un Formulario para dicha Creación/Edición.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Se utilizaron de librerías adicionales:
+-react router dom para la navegación
+-antd como design system para el UI
+-day.js para parsear las fechas del input de fechas de antd
 
-### `npm run build`
+App.js
+La idea principal de la implementación y considerando el tamaño de la App es manejar los estados a utilizar (lista de usuarios, usuario actual y es nuevo usuario) y pasarlos a los distintos componentes mediante un Context de React, en el directorio base `/` se muestra el componente List.js (la lista de usuarios), en el directorio `/form` se encuentra el Componente Form.js (el formulario de creación/edición)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+List.js
+Se toma la lista de empleados dentro del Context y se muestra al usuario con los detalles de cada entrada y las acciones a realizar, Editar guarda en el estado al usuario actual y la bandera de que no es nuevo usuario y redirige a Form.js, Borrar manda llamar al API de borrado con los datos del usuario actual. En el tope de la pantalla junto al letrero Empleados se muestra el botón para agregar nuevo usuario, dicho botón guarda el flag de nuevo usuario, resetea el usuario seleccionado y redirige a la pantalla Form.js
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Form.js
+Formulario para agregar o editar nuevo usuario, contiene los campos: Nombre, Apellido, Fecha de Nacimiento, Puesto, Sueldo, todos obligatorios; los campos de texto tienen límite de 255 caracteres. Esto se logra tomando el usuario seleccionado y el flag es Nuevo del Context, si es un nuevo cliente se muestra el letrero correspondiente, los valores default del Form de antd se copian del usuario seleccionado, el formulario toma los Componentes de input (texto, fecha o número) dentro de los componentes AntdForm.Item, toma la propiedad name del Componente, los liga al formulario y al momento de dar click a la opción de Guardar, manda llamar a las funciones pertinentes dependiendo de si el formulario está llenado correctamente o no, mandándole a dichas funciones un objeto con los datos del formulario como parámetro

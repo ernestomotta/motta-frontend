@@ -49,7 +49,7 @@ function App() {
     },
   ]);
   const [selectedUser, setSelectedUser] = useState({});
-  const [isNew, setIsNew] = useState(false);
+  const [isNew, setIsNew] = useState(true);
 
   return (
     <div className="App">
