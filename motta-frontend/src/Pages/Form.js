@@ -9,15 +9,27 @@ import {
   DatePicker,
 } from "antd";
 import dayjs from "dayjs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { createUser, updateUser } from "../services";
 
 const Form = () => {
-  const { selectedUser, isNew } = useContext(StateContext);
+  const { selectedUser, isNew, openNotification } = useContext(StateContext);
+
+  const navigate = useNavigate();
+
   const onFinish = (values) => {
-    console.log("Success:", values);
+    if (isNew) {
+      createUser(values, openNotification, navigate);
+    } else {
+      updateUser(values, openNotification, navigate);
+    }
   };
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    openNotification(
+      "Ups!",
+      "El formulario está incompleto, por favor revisa los datos."
+    );
   };
   return (
     <>
@@ -107,8 +119,6 @@ const Form = () => {
             {
               required: true,
               message: "Falta el sueldo!",
-              min: 1,
-              max: 255,
             },
           ]}
         >

@@ -1,11 +1,24 @@
 import { Link } from "react-router-dom";
 import { Divider, List as AntdList, Button, Flex } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { StateContext } from "../App";
+import { getList, deleteUser } from "../services";
 
 const List = () => {
-  const { setSelectedUser, list, setIsNew } = useContext(StateContext);
+  const { setSelectedUser, list, setList, setIsNew, openNotification } =
+    useContext(StateContext);
+
+  const handleGetList = (data, message, description) => {
+    if (message && description) {
+      openNotification(message, description);
+    }
+    setList(data);
+  };
+
+  useEffect(() => {
+    getList(handleGetList);
+  }, []);
 
   return (
     <>
@@ -26,6 +39,9 @@ const List = () => {
       <AntdList
         bordered
         dataSource={list}
+        pagination={{
+          pageSize: 4,
+        }}
         renderItem={(each) => (
           <AntdList.Item style={{ justifyContent: "flex-start", gap: "15px" }}>
             <Flex gap="middle" vertical>
@@ -40,7 +56,15 @@ const List = () => {
                   Editar
                 </Button>
               </Link>
-              <Button>Borrar</Button>
+              <Button
+                onClick={() => {
+                  deleteUser(each.id, openNotification, () =>
+                    getList(handleGetList)
+                  );
+                }}
+              >
+                Borrar
+              </Button>
             </Flex>
             <Flex gap="middle">
               <p>

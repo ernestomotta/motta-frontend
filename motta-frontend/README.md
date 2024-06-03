@@ -20,10 +20,15 @@ Se utilizaron de librerías adicionales:
 -day.js para parsear las fechas del input de fechas de antd
 
 App.js
-La idea principal de la implementación y considerando el tamaño de la App es manejar los estados a utilizar (lista de usuarios, usuario actual y es nuevo usuario) y pasarlos a los distintos componentes mediante un Context de React, en el directorio base `/` se muestra el componente List.js (la lista de usuarios), en el directorio `/form` se encuentra el Componente Form.js (el formulario de creación/edición)
+La idea principal de la implementación y considerando el tamaño de la App es manejar los estados a utilizar (lista de usuarios, usuario actual y es nuevo usuario) y pasarlos a los distintos componentes mediante un Context de React, en el directorio base `/` se muestra el componente List.js (la lista de usuarios), en el directorio `/form` se encuentra el Componente Form.js (el formulario de creación/edición), también se agrega un modal de notificaciones de antd, con el provider a nivel de este archivo
 
 List.js
 Se toma la lista de empleados dentro del Context y se muestra al usuario con los detalles de cada entrada y las acciones a realizar, Editar guarda en el estado al usuario actual y la bandera de que no es nuevo usuario y redirige a Form.js, Borrar manda llamar al API de borrado con los datos del usuario actual. En el tope de la pantalla junto al letrero Empleados se muestra el botón para agregar nuevo usuario, dicho botón guarda el flag de nuevo usuario, resetea el usuario seleccionado y redirige a la pantalla Form.js
 
 Form.js
 Formulario para agregar o editar nuevo usuario, contiene los campos: Nombre, Apellido, Fecha de Nacimiento, Puesto, Sueldo, todos obligatorios; los campos de texto tienen límite de 255 caracteres. Esto se logra tomando el usuario seleccionado y el flag es Nuevo del Context, si es un nuevo cliente se muestra el letrero correspondiente, los valores default del Form de antd se copian del usuario seleccionado, el formulario toma los Componentes de input (texto, fecha o número) dentro de los componentes AntdForm.Item, toma la propiedad name del Componente, los liga al formulario y al momento de dar click a la opción de Guardar, manda llamar a las funciones pertinentes dependiendo de si el formulario está llenado correctamente o no, mandándole a dichas funciones un objeto con los datos del formulario como parámetro
+
+services.js
+Se utiliza un mock de una página llamada https://mockapi.io/, se tiene un solo endpoint llamado api/v1/lista, con los métodos GET, POST, PUT, SELECT, en los últimos dos se manda el id mediante la url (ej. api/v1/lista/7 siendo 7 el id )
+
+Tuve problemas con los testings haciendo corto circuito con antd y no logré repararlo
