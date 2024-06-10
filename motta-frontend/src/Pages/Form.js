@@ -22,7 +22,7 @@ const Form = () => {
     if (isNew) {
       createUser(values, openNotification, navigate);
     } else {
-      updateUser(values, openNotification, navigate);
+      updateUser({ values, id: selectedUser.id }, openNotification, navigate);
     }
   };
   const onFinishFailed = (errorInfo) => {
@@ -31,6 +31,7 @@ const Form = () => {
       "El formulario está incompleto, por favor revisa los datos."
     );
   };
+
   return (
     <>
       <Divider orientation="left">

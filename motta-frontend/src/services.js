@@ -37,6 +37,7 @@ export const createUser = async (data, openNotification, navigate) => {
 };
 
 export const updateUser = async (data, openNotification, navigate) => {
+  console.log(data);
   const response = await fetch(`${url}/${data.id}`, {
     method: "PUT",
     headers: {
