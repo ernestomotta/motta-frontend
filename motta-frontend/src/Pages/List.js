@@ -4,6 +4,7 @@ import { UserAddOutlined } from "@ant-design/icons";
 import { useContext, useEffect } from "react";
 import { StateContext } from "../App";
 import { getList, deleteUser } from "../services";
+import dayjs from "dayjs";
 
 const List = () => {
   const { setSelectedUser, list, setList, setIsNew, openNotification } =
@@ -73,7 +74,9 @@ const List = () => {
               </p>
               <p>
                 <b>Nacimiento: </b>
-                {each.fechaNacimiento}
+                {each.fechaNacimiento
+                  ? dayjs(each.fechaNacimiento).format("DD/MM/YYYY")
+                  : "No disponible"}
               </p>
               <p>
                 <b>Puesto: </b>
